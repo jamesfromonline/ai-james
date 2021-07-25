@@ -1,0 +1,19 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "edit-json-file": "^1.6.0",
+    "google-spreadsheet": "^3.1.15",
+    "nodemon": "^2.0.12",
+    "twit": "^2.2.11"
+  }
+}
