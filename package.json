@@ -1,6 +1,6 @@
 {
-  "name": "ai james",
-  "version": "1.0.0",
+  "name": "ai-james",
+  "version": "1.0.1",
   "description": "a gpt-3 powered twitter bot based off of funny tweets",
   "main": "index.js",
   "scripts": {
