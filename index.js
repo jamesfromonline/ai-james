@@ -25,12 +25,7 @@ const handleSheetsUpdate = async () => {
     if (nextTweet)
       T.post('statuses/update',
       { status: nextTweet },
-      async (data, err) => {
-        console.log(data)
-        !err && await rows[0].delete()
-        err && console.log(err)
-      })
-      // console.log(new Date(), nextTweet)
+      async err => !err && await rows[0].delete())
   } catch (e) {
     throw e.message
   }
