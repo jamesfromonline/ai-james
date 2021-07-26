@@ -1,8 +1,10 @@
 require('dotenv').config()
 const twit = require('twit')
 const { GoogleSpreadsheet } = require('google-spreadsheet')
-const googleCreds = require('./google_config.json')
+const googleCreds = require('./google_config')
 const sheetId = process.env.GOOGLE_SHEET_ID
+const doc = new GoogleSpreadsheet(sheetId)
+
 const T = new twit({
   consumer_key:         process.env.CONSUMER_KEY,
   consumer_secret:      process.env.CONSUMER_SECRET,
@@ -12,7 +14,6 @@ const T = new twit({
   strictSSL:            true
 })
 
-const doc = new GoogleSpreadsheet(sheetId);
 const handleSheetsUpdate = async () => {
   try {
     await doc.useServiceAccountAuth(googleCreds)
@@ -20,17 +21,11 @@ const handleSheetsUpdate = async () => {
     const sheet = doc.sheetsByIndex[0]
     const rows = await sheet.getRows()
     await sheet.loadCells('A2:A2')
-    const latestTweet = sheet.getCellByA1('A2').value
-    if (latestTweet) {
-      
-      T.post('statuses/update', { status: latestTweet }, async err => {
-        if (!err) {
-          console.log('TWEETED: ', latestTweet)
-          await rows[0].delete()
-        }
-      })
-
-    }
+    const nextTweet = sheet.getCellByA1('A2').value
+    if (nextTweet)
+      T.post('statuses/update',
+      { status: nextTweet },
+      async err => !err && await rows[0].delete())
   } catch (e) {
     throw e.message
   }
