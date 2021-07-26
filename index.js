@@ -23,10 +23,9 @@ const handleSheetsUpdate = async () => {
     await sheet.loadCells('A2:A2')
     const nextTweet = sheet.getCellByA1('A2').value
     if (nextTweet)
-      console.log(nextTweet)
-      // T.post('statuses/update',
-      // { status: nextTweet },
-      // async err => !err && await rows[0].delete())
+      T.post('statuses/update',
+      { status: nextTweet },
+      async err => !err && await rows[0].delete())
   } catch (e) {
     throw e.message
   }
